@@ -1,6 +1,7 @@
 package ru.javabegin.training.fastjava2.javafx.controllers;
 
 import javafx.beans.property.Property;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,9 +56,9 @@ public class MainController {
     private void initialize() {
         columnFio.setCellValueFactory(new PropertyValueFactory<Person, String>("fio"));
         columnPhone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
+        addressBookImpl.getPersonlist().addListener(((ListChangeListener) c -> updateCountLabel()));
         addressBookImpl.feedTestData();
         tableAdressBook.setItems(addressBookImpl.getPersonlist());
-        updateCountLabel();
 
 
     }

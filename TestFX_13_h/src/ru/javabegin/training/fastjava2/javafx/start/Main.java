@@ -23,17 +23,6 @@ public class Main extends Application {
 
    /* private void testData() {
         CollectionAddressBook collectionAddressBook = new CollectionAddressBook();
-
-        Person person = new Person("test1", "11111");
-
-
-        Person person2 = new Person("test2", "222222222");
-
-        collectionAddressBook.add(person);
-        collectionAddressBook.add(person2);
-
-        person.setPhone("9999999");
-        collectionAddressBook.delete(person);
         collectionAddressBook.feedTestData();
         collectionAddressBook.print();
 
