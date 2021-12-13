@@ -16,7 +16,6 @@ public class CollectionAddressBook implements AdressBook {
         return personlist;
     }
 
-
     @Override
     public void add(Person person) {
         personlist.add(person);
@@ -33,10 +32,11 @@ public class CollectionAddressBook implements AdressBook {
         personlist.remove(person);
     }
 
-    private ObservableList<Person> getPersonList(){
+    private ObservableList<Person> getPersonList() {
         return personlist;
     }
-    public  void  print(){
+
+    public void print() {
         int number = 0;
         System.out.println();
         for (Person person : personlist) {
@@ -46,7 +46,8 @@ public class CollectionAddressBook implements AdressBook {
         }
         ;
     }
-    public void feedTestData(){
+
+    public void feedTestData() {
         personlist.add(new Person("Ivan", "11111"));
         personlist.add(new Person("Andrei", "222"));
         personlist.add(new Person("Grigore", "3333"));

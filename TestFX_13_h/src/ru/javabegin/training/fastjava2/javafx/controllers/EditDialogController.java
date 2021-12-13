@@ -34,6 +34,11 @@ public class EditDialogController {
     public void actionClose(ActionEvent event) {
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
+        stage.hide();
+    }
+    public void actionSave(ActionEvent event){
+        person.setPhone(txtPhone.getText());
+        person.setFio(txtFIO.getText());
+        actionClose(event);
     }
 }
