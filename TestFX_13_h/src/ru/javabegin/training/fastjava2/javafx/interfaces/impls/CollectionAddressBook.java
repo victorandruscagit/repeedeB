@@ -32,6 +32,7 @@ public class CollectionAddressBook implements AdressBook {
     public void delete(Person person) {
         personlist.remove(person);
     }
+
     private ObservableList<Person> getPersonList(){
         return personlist;
     }

@@ -1,6 +1,5 @@
 package ru.javabegin.training.fastjava2.javafx.controllers;
 
-import javafx.beans.property.Property;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,13 +17,11 @@ import javafx.stage.Stage;
 import ru.javabegin.training.fastjava2.javafx.interfaces.impls.CollectionAddressBook;
 import ru.javabegin.training.fastjava2.javafx.objects.Person;
 
-import java.awt.*;
 import java.io.IOException;
-import java.util.logging.Logger;
 
 public class MainController {
 
-    private CollectionAddressBook addressBookImpl = new CollectionAddressBook();
+    private CollectionAddressBook collectionAddressBook = new CollectionAddressBook();
 
     @FXML
     private Button btnAdd;
@@ -54,20 +51,43 @@ public class MainController {
 
     @FXML
     private void initialize() {
+        //tableAdressBook.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         columnFio.setCellValueFactory(new PropertyValueFactory<Person, String>("fio"));
         columnPhone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
-        addressBookImpl.getPersonlist().addListener(((ListChangeListener) c -> updateCountLabel()));
-        addressBookImpl.feedTestData();
-        tableAdressBook.setItems(addressBookImpl.getPersonlist());
+        collectionAddressBook.getPersonlist().addListener(((ListChangeListener) c -> updateCountLabel()));
+        collectionAddressBook.feedTestData();
+        tableAdressBook.setItems(collectionAddressBook.getPersonlist());
 
 
     }
 
+
     private void updateCountLabel() {
-        labelCount.setText("Numar de inregistrari: " + addressBookImpl.getPersonlist().size());
+        labelCount.setText("Numar de inregistrari: " + collectionAddressBook.getPersonlist().size());
     }
 
     public void showDialog(ActionEvent event) {
+        Object source = event.getSource();
+        if (!(source instanceof Button)) {
+            return;
+        }
+        Button clickedButton = (Button) source;
+        Person selectedPerson = (Person) tableAdressBook.getSelectionModel().getSelectedItem();
+
+        switch (clickedButton.getId()) {
+            case "btnAdd":
+                System.out.println("add " + selectedPerson);
+                break;
+            case "btnEdit":
+                System.out.println("edit  " + selectedPerson);
+                break;
+            case "btnDelete":
+                System.out.println("delete  " + selectedPerson);
+                break;
+
+        }
+
+
         try {
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("../fxml/edit.fxml"));
