@@ -13,24 +13,15 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("../fxml/main.fxml"));
-        primaryStage.setTitle("Addres Book");
+        primaryStage.setTitle("Address Book");
         primaryStage.setMinHeight(600);
         primaryStage.setMinWidth(400);
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
-
     }
-
-   /* private void testData() {
-        CollectionAddressBook collectionAddressBook = new CollectionAddressBook();
-        collectionAddressBook.feedTestData();
-        collectionAddressBook.print();
-
-    }*/
 
 
     public static void main(String[] args) {
-
         launch(args);
     }
 }

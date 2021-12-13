@@ -42,9 +42,7 @@ public class CollectionAddressBook implements AdressBook {
         for (Person person : personlist) {
             number++;
             System.out.println(number + ") fio = " + person.getFio() + "; phone = " + person.getPhone());
-
         }
-        ;
     }
 
     public void feedTestData() {
@@ -54,5 +52,6 @@ public class CollectionAddressBook implements AdressBook {
         personlist.add(new Person("Mashka", "4444"));
         personlist.add(new Person("Zidane", "5555"));
         personlist.add(new Person("Ronaldo", "7777"));
+        personlist.add(new Person("Mbappe", "999"));
     }
 }

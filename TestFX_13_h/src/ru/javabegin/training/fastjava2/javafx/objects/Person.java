@@ -4,8 +4,8 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Person {
 
-    private SimpleStringProperty fio = new SimpleStringProperty(" ");
-    private SimpleStringProperty phone = new SimpleStringProperty(" ");;
+    private SimpleStringProperty fio = new SimpleStringProperty("");
+    private SimpleStringProperty phone = new SimpleStringProperty("");;
 
     public Person() {
     }

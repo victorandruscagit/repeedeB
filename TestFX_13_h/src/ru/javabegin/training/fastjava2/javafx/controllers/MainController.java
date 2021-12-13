@@ -50,13 +50,10 @@ public class MainController {
 
     @FXML
     private TableColumn<Person, String> columnPhone;
-
-
     private Parent fxmlEdit;
     private FXMLLoader fxmlLoader = new FXMLLoader();
     private EditDialogController editDialogController;
     private Stage editDialogStage;
-
 
     @FXML
     private void initialize() {
