@@ -25,7 +25,14 @@ public class EditDialogController {
 
     private Person person;
 
+    public Person getPerson() {
+        return person;
+    }
+
     public void setPerson(Person person) {
+        if (person == null) {
+            return;
+        }
         this.person = person;
         txtFIO.setText(person.getFio());
         txtPhone.setText(person.getPhone());

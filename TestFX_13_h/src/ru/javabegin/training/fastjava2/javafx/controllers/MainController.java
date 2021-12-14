@@ -2,6 +2,7 @@ package ru.javabegin.training.fastjava2.javafx.controllers;
 
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -43,6 +45,9 @@ public class MainController {
     @FXML
     private Label labelCount;
 
+    private Stage mainStage;
+
+
     @FXML
     private TextField txtSearch;
     @FXML
@@ -55,26 +60,55 @@ public class MainController {
     private EditDialogController editDialogController;
     private Stage editDialogStage;
 
-    @FXML
-    private void initialize() {
-        //tableAdressBook.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        columnFio.setCellValueFactory(new PropertyValueFactory<Person, String>("fio"));
-        columnPhone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
-        collectionAddressBook.getPersonlist()
-                .addListener(((ListChangeListener) c -> updateCountLabel()));
+    public void setMainStage(Stage mainStage) {
+        this.mainStage = mainStage;
+    }
+
+    private void initListner(){
+        collectionAddressBook.getPersonlist().addListener(new ListChangeListener<Person>() {
+            @Override
+            public void onChanged(Change<? extends Person> c) {
+                updateCountLabel();
+            }
+        });
+        tableAdressBook.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if(event.getClickCount()== 2){
+                    editDialogController.
+                            setPerson(((Person)tableAdressBook.getSelectionModel().getSelectedItem()));
+                    showDialog();
+                }
+            }
+        });
+    }
+    private void feedData(){
         collectionAddressBook.feedTestData();
         tableAdressBook.setItems(collectionAddressBook.getPersonlist());
+    }
 
+    public void initLoader(){
         try {
             fxmlLoader.setLocation(getClass().getResource("../fxml/edit.fxml"));
-            fxmlEdit = fxmlLoader.load();
-            editDialogController = fxmlLoader.getController();
+            fxmlEdit  = fxmlLoader.load();
+            editDialogController  = fxmlLoader.getController();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+
+    @FXML
+    private void initialize() {
+        columnFio.setCellValueFactory(new PropertyValueFactory<Person, String>("fio"));
+        columnPhone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
+        initListner();
+        feedData();
+        initLoader();
 
     }
+
 
     private void updateCountLabel() {
         labelCount.setText("Numar de inregistrari: " + collectionAddressBook.getPersonlist().size());
@@ -92,29 +126,36 @@ public class MainController {
 
         switch (clickedButton.getId()) {
             case "btnAdd":
+                editDialogController.setPerson(new Person());
+                showDialog();
+                collectionAddressBook.add(editDialogController.getPerson());
                 break;
             case "btnEdit":
-                showDialog(parentWindow);
+                editDialogController.setPerson(((Person)tableAdressBook.getSelectionModel().getSelectedItem()));
+                showDialog();
                 break;
             case "btnDelete":
+                collectionAddressBook.delete(((Person) tableAdressBook.getSelectionModel().getSelectedItem()));
                 break;
         }
     }
 
-    private void showDialog(Window parentWindow) {
+    private void showDialog() {
         if (editDialogStage == null) {
             editDialogStage = new Stage();
-            editDialogStage.setTitle("Redacteza  inregistrarea");
+            editDialogStage.setTitle("Redacteaza  inregistrarea");
             editDialogStage.setMinHeight(150);
             editDialogStage.setMinHeight(300);
             editDialogStage.setResizable(false);
             editDialogStage.setScene(new Scene(fxmlEdit));
             editDialogStage.initModality(Modality.WINDOW_MODAL);
-            editDialogStage.initOwner(parentWindow);
-            editDialogStage.show();
+            editDialogStage.initOwner(mainStage);
         }
+        editDialogStage.showAndWait();
 
     }
+
+
 }
 
 

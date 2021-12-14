@@ -3,9 +3,9 @@ package ru.javabegin.training.fastjava2.javafx.objects;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Person {
-
     private SimpleStringProperty fio = new SimpleStringProperty("");
-    private SimpleStringProperty phone = new SimpleStringProperty("");;
+    private SimpleStringProperty phone = new SimpleStringProperty("");
+
 
     public Person() {
     }
@@ -28,8 +28,9 @@ public class Person {
     }
 
     public void setPhone(String phone) {
-        this.fio.set(phone);
+        this.phone.set(phone);
     }
+
 
     public SimpleStringProperty fioProperty() {
         return fio;

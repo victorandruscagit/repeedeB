@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ru.javabegin.training.fastjava2.javafx.controllers.MainController;
 import ru.javabegin.training.fastjava2.javafx.interfaces.impls.CollectionAddressBook;
 import ru.javabegin.training.fastjava2.javafx.objects.Person;
 
@@ -12,11 +13,16 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("../fxml/main.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("../fxml/main.fxml"));
+        Parent fxmlMain = fxmlLoader.load();
+        MainController mainController = fxmlLoader.getController();
+        mainController.setMainStage(primaryStage);
+
         primaryStage.setTitle("Address Book");
         primaryStage.setMinHeight(600);
         primaryStage.setMinWidth(400);
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(fxmlMain, 300, 275));
         primaryStage.show();
     }
 
