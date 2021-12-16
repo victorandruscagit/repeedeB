@@ -118,7 +118,7 @@ public class MainController implements Initializable {
 
 
     private void updateCountLabel() {
-        labelCount.setText(resourceBundle.getString("cou(nt") + ": " + collectionAddressBook.getPersonlist().size());
+        labelCount.setText(resourceBundle.getString("count") + ": " + collectionAddressBook.getPersonlist().size());
     }
 
     public void actionButtonPressed(ActionEvent event) {
