@@ -24,7 +24,7 @@ public class Main extends Application {
         MainController mainController = fxmlLoader.getController();
         mainController.setMainStage(primaryStage);
 
-        primaryStage.setTitle(fxmlLoader.getResources().getString("key.address_book"));
+        primaryStage.setTitle(fxmlLoader.getResources().getString("address_book"));
 
         primaryStage.setTitle("Address Book");
         primaryStage.setMinHeight(600);

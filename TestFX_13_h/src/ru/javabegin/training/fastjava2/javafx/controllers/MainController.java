@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,8 +22,10 @@ import ru.javabegin.training.fastjava2.javafx.interfaces.impls.CollectionAddress
 import ru.javabegin.training.fastjava2.javafx.objects.Person;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MainController {
+public class MainController implements Initializable {
 
     private CollectionAddressBook collectionAddressBook = new CollectionAddressBook();
 
@@ -60,11 +63,24 @@ public class MainController {
     private EditDialogController editDialogController;
     private Stage editDialogStage;
 
+    private ResourceBundle resourceBundle;
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        this.resourceBundle = resources;
+        columnFio.setCellValueFactory(new PropertyValueFactory<Person, String>("fio"));
+        columnPhone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
+        initListner();
+        feedData();
+        initLoader();
+    }
+
     public void setMainStage(Stage mainStage) {
         this.mainStage = mainStage;
     }
 
-    private void initListner(){
+    private void initListner() {
         collectionAddressBook.getPersonlist().addListener(new ListChangeListener<Person>() {
             @Override
             public void onChanged(Change<? extends Person> c) {
@@ -74,24 +90,25 @@ public class MainController {
         tableAdressBook.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(event.getClickCount()== 2){
+                if (event.getClickCount() == 2) {
                     editDialogController.
-                            setPerson(((Person)tableAdressBook.getSelectionModel().getSelectedItem()));
+                            setPerson(((Person) tableAdressBook.getSelectionModel().getSelectedItem()));
                     showDialog();
                 }
             }
         });
     }
-    private void feedData(){
+
+    private void feedData() {
         collectionAddressBook.feedTestData();
         tableAdressBook.setItems(collectionAddressBook.getPersonlist());
     }
 
-    public void initLoader(){
+    public void initLoader() {
         try {
             fxmlLoader.setLocation(getClass().getResource("../fxml/edit.fxml"));
-            fxmlEdit  = fxmlLoader.load();
-            editDialogController  = fxmlLoader.getController();
+            fxmlEdit = fxmlLoader.load();
+            editDialogController = fxmlLoader.getController();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -99,19 +116,9 @@ public class MainController {
     }
 
 
-    @FXML
-    private void initialize() {
-        columnFio.setCellValueFactory(new PropertyValueFactory<Person, String>("fio"));
-        columnPhone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
-        initListner();
-        feedData();
-        initLoader();
-
-    }
-
 
     private void updateCountLabel() {
-        labelCount.setText("Numar de inregistrari: " + collectionAddressBook.getPersonlist().size());
+        labelCount.setText(resourceBundle.getString("cou(nt") + ": " + collectionAddressBook.getPersonlist().size());
     }
 
     public void actionButtonPressed(ActionEvent event) {
@@ -131,7 +138,7 @@ public class MainController {
                 collectionAddressBook.add(editDialogController.getPerson());
                 break;
             case "btnEdit":
-                editDialogController.setPerson(((Person)tableAdressBook.getSelectionModel().getSelectedItem()));
+                editDialogController.setPerson(((Person) tableAdressBook.getSelectionModel().getSelectedItem()));
                 showDialog();
                 break;
             case "btnDelete":
