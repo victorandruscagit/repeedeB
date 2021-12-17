@@ -9,17 +9,17 @@
     <children>
         <HBox maxHeight="50.0" prefHeight="100.0">
             <children>
-                <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#actionButtonPressed" text="Добавить">
+                <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#actionButtonPressed" text="%add">
                     <HBox.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#actionButtonPressed" text="Изменить">
+                <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#actionButtonPressed" text="%edit">
                     <HBox.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#actionButtonPressed" text="Удалить">
+                <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#actionButtonPressed" text="%delete">
                     <HBox.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                     </HBox.margin>

@@ -18,8 +18,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import org.controlsfx.control.CustomTextField;
 import ru.javabegin.training.fastjava2.javafx.interfaces.impls.CollectionAddressBook;
 import ru.javabegin.training.fastjava2.javafx.objects.Person;
+import ru.javabegin.training.fastjava2.javafx.utils.DialogManager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -99,10 +101,12 @@ public class MainController implements Initializable {
         });
     }
 
+
     private void feedData() {
         collectionAddressBook.feedTestData();
         tableAdressBook.setItems(collectionAddressBook.getPersonlist());
     }
+
 
     public void initLoader() {
         try {
@@ -113,6 +117,13 @@ public class MainController implements Initializable {
             e.printStackTrace();
         }
 
+    }
+    private boolean isPersonSelected(Person selecttedPerson){
+        if (selecttedPerson == null) {
+            DialogManager.showInfoDialog(resourceBundle.getString("error"), resourceBundle.getString("selected_person"));
+            return  false;
+        }
+        return true;
     }
 
 
@@ -138,10 +149,16 @@ public class MainController implements Initializable {
                 collectionAddressBook.add(editDialogController.getPerson());
                 break;
             case "btnEdit":
+                if(!isPersonSelected(selectedPerson)){
+                    return;
+                }
                 editDialogController.setPerson(((Person) tableAdressBook.getSelectionModel().getSelectedItem()));
                 showDialog();
                 break;
             case "btnDelete":
+                if(!isPersonSelected(selectedPerson)){
+                    return;
+                }
                 collectionAddressBook.delete(((Person) tableAdressBook.getSelectionModel().getSelectedItem()));
                 break;
         }
